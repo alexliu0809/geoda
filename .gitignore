@@ -59,3 +59,6 @@ BuildTools/.DS_Store
 .DS_Store
 
 *.DS_Store
+
+BuildTools/macosx/libraries.zip
+BuildTools/windows/oldlogger.txt

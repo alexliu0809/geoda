@@ -22,7 +22,7 @@
 #include "GenUtils.h"
 #include <wx/mstream.h>
 
-char* GdaConst::raw_zoom_in[] = {
+const char* GdaConst::raw_zoom_in[] = {
 
 	"16 16 48 1",
 	" 	g None",
@@ -91,7 +91,7 @@ char* GdaConst::raw_zoom_in[] = {
 	"                "
 };
 
-char* GdaConst::raw_zoom_out[] = {
+const char* GdaConst::raw_zoom_out[] = {
 	"16 16 48 1",
 	" 	g None",
 	".	g #979797",
@@ -158,12 +158,49 @@ char* GdaConst::raw_zoom_out[] = {
 	"                ",
 	"                "};
 
+const char* GdaConst::delete_icon_xpm[] = {
+    "16 16 14 1 ",
+    "  c #E91611",
+    ". c #EA1711",
+    "X c #ED1813",
+    "o c #FD1E18",
+    "O c #FE1F1A",
+    "+ c #F02917",
+    "@ c #F02918",
+    "# c #F02A19",
+    "$ c #F02D1B",
+    "% c #F02D1C",
+    "& c #DA2E2A",
+    "* c #DA302A",
+    "= c #E93A2D",
+    "- c None",
+    "----------------",
+    "----------------",
+    "----------------",
+    "----------------",
+    "----------------",
+    "----------------",
+    "----------------",
+    "---%%+#####$=---",
+    "---*o.XXXX.o&---",
+    "----------------",
+    "----------------",
+    "----------------",
+    "----------------",
+    "----------------",
+    "----------------",
+    "----------------"
+};
+
+
 wxString GdaConst::FieldTypeToStr(GdaConst::FieldType ft)
 {
 	if (ft == GdaConst::double_type) return "real";
 	if (ft == GdaConst::long64_type) return "integer";
 	if (ft == GdaConst::string_type) return "string";
 	if (ft == GdaConst::date_type) return "date";
+	if (ft == GdaConst::time_type) return "time";
+	if (ft == GdaConst::datetime_type) return "datetime";
 	if (ft == GdaConst::placeholder_type) return "placeholder";
 	return "unknown";
 }
@@ -207,6 +244,19 @@ wxFont* GdaConst::extra_small_font = 0;
 wxFont* GdaConst::small_font = 0;
 wxFont* GdaConst::medium_font = 0;
 wxFont* GdaConst::large_font = 0;
+
+bool GdaConst::use_cross_hatching = false;
+int GdaConst::transparency_highlighted = 190;
+int GdaConst::transparency_unhighlighted = 255;
+int GdaConst::transparency_map_on_basemap = 200;
+bool GdaConst::use_basemap_by_default = false;
+int GdaConst::default_basemap_selection = 0;
+bool GdaConst::hide_sys_table_postgres = false;
+bool GdaConst::hide_sys_table_sqlite = false;
+bool GdaConst::disable_crash_detect = false;
+bool GdaConst::disable_auto_upgrade = false;
+int GdaConst::plot_transparency_highlighted = 255;
+int GdaConst::plot_transparency_unhighlighted = 50;
 
 const wxPen* GdaConst::default_myshape_pen=0;
 const wxBrush* GdaConst::default_myshape_brush=0;
@@ -330,6 +380,7 @@ std::vector<wxColour> GdaConst::qualitative_colors(10);
 
 const wxString GdaConst::html_submenu_title("Web Plugins");
 
+
 /**
  Certain objects such as wxFont objects need to be created after
  wxWidgets is sufficiently initialized.  This function will be
@@ -421,6 +472,7 @@ void GdaConst::init()
 	qualitative_colors[8] = wxColour(202, 178, 214);
 	qualitative_colors[9] = wxColour(106, 61, 154);
 	
+    
 	// Filenames or field names start with a letter, and they can contain any
 	// combination of the letters A through Z, the digits 0 through 9,
 	// the colon (:) (in dBASE II field names only), and the underscore (_)
